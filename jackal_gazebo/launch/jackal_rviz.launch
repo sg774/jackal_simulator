@@ -27,17 +27,7 @@
   </include>
   -->
   <!-- Static frames -->
-  <node pkg="tf" type="static_transform_publisher" name="static_transform_publisher_map_odom" output="screen" args="0 0 0 0 0 0  map odom 100"/>
-
-  <!-- Load Jackal's description, controllers, and teleop nodes.
-  <include file="$(find jackal_description)/launch/description.launch">
-    <arg name="config" value="$(arg config)" />
-  </include>
-  <include file="$(find jackal_control)/launch/control.launch" />
-  <include file="$(find jackal_control)/launch/teleop.launch">
-    <arg name="joystick" value="false"/>
-  </include>
-  -->
+  <node pkg="tf" type="static_transform_publisher" name="static_transform_publisher_map_odom" output="screen" args="27 -12 0 0 0 0.707 0.707  map odom 100"/>
 
   <!-- send cob urdf to param server -->
   <param name="robot_description" command="$(find xacro)/xacro --inorder '$(arg pkg_hardware_config)/urdf/$(arg robot).urdf.xacro'" />
