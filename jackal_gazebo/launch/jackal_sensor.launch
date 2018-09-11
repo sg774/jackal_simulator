@@ -25,7 +25,7 @@
   </include>
 
   <!-- Load Jackal's description, controllers, and teleop nodes. -->
-  <include file="$(find jackal_description)/launch/description.launch">
+  <include file="$(find jackal_description)/launch/description_sensor.launch">
     <arg name="config" value="$(arg config)" />
   </include>
   <include file="$(find jackal_control)/launch/control.launch" />
@@ -33,11 +33,10 @@
     <arg name="joystick" value="false"/>
   </include>
 
+  <!-- Launch velodyne laserscan node -->
+  <node name="velodyne_laserscan_node" pkg="velodyne_laserscan" type="velodyne_laserscan_node"/>
+
   <!-- Spawn Jackal -->
   <node name="urdf_spawner" pkg="gazebo_ros" type="spawn_model"
 	      args="-urdf -model jackal -param robot_description -x 0 -y 0 -z 1.0" />
-
-
-<node pkg="tf" type="static_transform_publisher" name="map_odom_broadcaster" args="0 0 0 0 0 0 map odom 100" />
-
 </launch>
