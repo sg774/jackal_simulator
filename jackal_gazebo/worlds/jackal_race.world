@@ -11,28 +11,90 @@
       <uri>model://ground_plane</uri>
     </include>
 
-<!--    <model name="tree2">
-      <static>true</static>
-      <link name="tree2_link">
-          <pose>3 0 0.7 0 0 0.3</pose>
-          <collision name="tree2_collision">
-              <geometry>
-                  <mesh>
-                    <uri>file://OliveTree1.dae</uri>
-                    <scale>1 1 1</scale>
-                  </mesh>
-              </geometry>
-          </collision>
-          <visual name="tree2_visual">
-              <geometry>
-                <mesh>
-                  <uri>file://OliveTree1.dae</uri>
-                  <scale>1 1 1</scale>
-                </mesh>
-              </geometry>
-              <cast_shadows>false</cast_shadows>
-          </visual>
+    <model name='person_walking'>
+      <pose frame=''>-0.123008 -0.186609 0 0 -0 0.000143</pose>
+      <scale>1 1 1</scale>
+      <link name='ped_link'>
+        <pose frame=''>-0.123008 -0.186609 0 0 -0 0.000143</pose>
+        <velocity>0 0 0 0 -0 0</velocity>
+        <acceleration>0.331829 -2.74054 2.04297 -1.35579 0.124281 0.342374</acceleration>
+        <wrench>26.5463 -219.243 163.437 0 -0 0</wrench>
       </link>
-    </model>-->
- </world>
+      <plugin name='p3d' filename='libgazebo_ros_p3d.so'>
+        <bodyName>ped_link</bodyName>
+        <topicName>ped_pose_ground_truth</topicName>
+        <frameName>map</frameName>
+        <updateRate>100.0</updateRate>
+        <robotNamespace>/</robotNamespace>
+      </plugin>
+      <link name='link'>
+      <inertial>
+        <pose frame=''>0 0 0.95 0 -0 0</pose>
+        <mass>80</mass>
+        <inertia>
+          <ixx>27.82</ixx>
+          <ixy>0</ixy>
+          <ixz>0</ixz>
+          <iyy>24.88</iyy>
+          <iyz>0</iyz>
+          <izz>4.57</izz>
+        </inertia>
+      </inertial>
+        <collision name='bottom'>
+          <pose frame=''>0 0 0.01 0 -0 0</pose>
+             <geometry>
+               <box>
+                 <size>0.35 0.75 0.02</size>
+               </box>
+             </geometry>
+             <max_contacts>10</max_contacts>
+             <surface>
+               <contact>
+                 <ode/>
+               </contact>
+               <bounce/>
+               <friction>
+                 <torsional>
+                   <ode/>
+                 </torsional>
+                 <ode/>
+               </friction>
+             </surface>
+           </collision>
+           <collision name='person'>
+             <pose frame=''>0 0 -0.02 0 -0 0</pose>
+             <geometry>
+               <mesh>
+                 <uri>model://person_walking/meshes/walking.dae</uri>
+               </mesh>
+             </geometry>
+             <max_contacts>10</max_contacts>
+             <surface>
+               <contact>
+                 <ode/>
+               </contact>
+               <bounce/>
+               <friction>
+                 <torsional>
+                   <ode/>
+                 </torsional>
+                 <ode/>
+               </friction>
+             </surface>
+           </collision>
+           <visual name='visual'>
+             <pose frame=''>0 0 -0.02 0 -0 0</pose>
+             <geometry>
+               <mesh>
+                 <uri>model://person_walking/meshes/walking.dae</uri>
+               </mesh>
+             </geometry>
+           </visual>
+           <self_collide>0</self_collide>
+           <enable_wind>0</enable_wind>
+           <kinematic>0</kinematic>
+         </link>
+         <pose frame=''>-0.123008 -0.18626 0 0 -0 0</pose>
+    </model>
+  </world>
 </sdf>
