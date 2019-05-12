@@ -10,26 +10,12 @@
     <include>
       <uri>model://ground_plane</uri>
     </include>
-
+<!--
     <model name='person_walking'>
-      <pose frame=''>-0.123008 -0.186609 0 0 -0 0.000143</pose>
-      <scale>1 1 1</scale>
-      <link name='ped_link'>
-        <pose frame=''>-0.123008 -0.186609 0 0 -0 0.000143</pose>
-        <velocity>0 0 0 0 -0 0</velocity>
-        <acceleration>0.331829 -2.74054 2.04297 -1.35579 0.124281 0.342374</acceleration>
-        <wrench>26.5463 -219.243 163.437 0 -0 0</wrench>
-      </link>
-      <plugin name='p3d' filename='libgazebo_ros_p3d.so'>
-        <bodyName>ped_link</bodyName>
-        <topicName>ped_pose_ground_truth</topicName>
-        <frameName>map</frameName>
-        <updateRate>100.0</updateRate>
-        <robotNamespace>/</robotNamespace>
-      </plugin>
-      <link name='link'>
+      <link name='ped_link_1'>
+      <gravity>0</gravity>
       <inertial>
-        <pose frame=''>0 0 0.95 0 -0 0</pose>
+        <pose frame=''>0 0 0 0 -0 0</pose>
         <mass>80</mass>
         <inertia>
           <ixx>27.82</ixx>
@@ -40,50 +26,50 @@
           <izz>4.57</izz>
         </inertia>
       </inertial>
-        <collision name='bottom'>
-          <pose frame=''>0 0 0.01 0 -0 0</pose>
-             <geometry>
-               <box>
-                 <size>0.35 0.75 0.02</size>
-               </box>
-             </geometry>
-             <max_contacts>10</max_contacts>
-             <surface>
-               <contact>
+      <collision name='bottom'>
+        <pose frame=''>0 0 0 0 0 0</pose>
+          <geometry>
+            <box>
+              <size>0.35 0.75 0.02</size>
+            </box>
+          </geometry>
+          <max_contacts>10</max_contacts>
+          <surface>
+            <contact>
+              <ode/>
+            </contact>
+            <bounce/>
+             <friction>
+               <torsional>
                  <ode/>
-               </contact>
-               <bounce/>
-               <friction>
-                 <torsional>
-                   <ode/>
-                 </torsional>
-                 <ode/>
-               </friction>
-             </surface>
-           </collision>
-           <collision name='person'>
-             <pose frame=''>0 0 -0.02 0 -0 0</pose>
-             <geometry>
-               <mesh>
-                 <uri>model://person_walking/meshes/walking.dae</uri>
-               </mesh>
-             </geometry>
-             <max_contacts>10</max_contacts>
-             <surface>
-               <contact>
-                 <ode/>
-               </contact>
-               <bounce/>
-               <friction>
-                 <torsional>
-                   <ode/>
-                 </torsional>
-                 <ode/>
-               </friction>
-             </surface>
-           </collision>
-           <visual name='visual'>
-             <pose frame=''>0 0 -0.02 0 -0 0</pose>
+               </torsional>
+               <ode/>
+             </friction>
+          </surface>
+      </collision>
+      <collision name='person'>
+        <pose frame=''>0 0 0 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <uri>model://person_walking/meshes/walking.dae</uri>
+          </mesh>
+        </geometry>
+        <max_contacts>10</max_contacts>
+        <surface>
+          <contact>
+            <ode/>
+          </contact>
+          <bounce/>
+          <friction>
+            <torsional>
+              <ode/>
+            </torsional>
+            <ode/>
+          </friction>
+        </surface>
+      </collision>
+      <visual name='visual'>
+             <pose frame=''>0 0 0 0 -0 0</pose>
              <geometry>
                <mesh>
                  <uri>model://person_walking/meshes/walking.dae</uri>
@@ -93,8 +79,70 @@
            <self_collide>0</self_collide>
            <enable_wind>0</enable_wind>
            <kinematic>0</kinematic>
-         </link>
-         <pose frame=''>-0.123008 -0.18626 0 0 -0 0</pose>
+        </link>
+        <pose frame=''>0 0 0 0 -0 0</pose>
+        <joint name="ped_joint" type="planar">
+          <origin xyz="0 0 0" rpy="0 0 0" />
+          <parent link="odom"/>
+          <child link="ped_link_1" />
+        </joint>
+        <transmission name="ped_trans">
+          <type>transmission_interface/SimpleTransmission</type>
+          <joint name="ped_joint">
+            <hardwareInterface>PositionJointInterface</hardwareInterface>
+          </joint>
+          <actuator name="ped_actuator">
+            <mechanicalReduction>1</mechanicalReduction>
+          </actuator>
+        </transmission>
+        <plugin name="object_controller" filename="libgazebo_ros_planar_move.so">
+          <commandTopic>ped_link_1</commandTopic>
+          <odometryTopic>odom</odometryTopic>
+          <odometryFrame>odom</odometryFrame>
+          <odometryRate>10.0</odometryRate>
+          <robotBaseFrame>ped_link_1</robotBaseFrame>
+        </plugin>
     </model>
+
+        <model name='person_walking_2'>
+          <link name='ped_link_2'>
+          <gravity>0</gravity>
+
+          <visual name='visual'>
+            <pose frame=''>0 0 0 0 -0 0</pose>
+                 <geometry>
+                   <mesh>
+                     <uri>model://person_walking/meshes/walking.dae</uri>
+                   </mesh>
+                 </geometry>
+               </visual>
+               <self_collide>0</self_collide>
+               <enable_wind>0</enable_wind>
+               <kinematic>0</kinematic>
+            </link>
+            <pose frame='ped_link_2'>0 0 0 0 -0 0</pose>
+            <joint name="ped_joint_2" type="planar">
+              <origin xyz="0 0 0" rpy="0 0 0" />
+              <parent link="odom"/>
+              <child link="ped_link_2" />
+            </joint>
+            <transmission name="ped_trans_2">
+              <type>transmission_interface/SimpleTransmission</type>
+              <joint name="ped_joint_2">
+                <hardwareInterface>PositionJointInterface</hardwareInterface>
+              </joint>
+              <actuator name="ped_actuator_2">
+                <mechanicalReduction>1</mechanicalReduction>
+              </actuator>
+            </transmission>
+            <plugin name="object_controller_2" filename="libgazebo_ros_planar_move.so">
+              <commandTopic>ped_link_2</commandTopic>
+              <odometryTopic>odom</odometryTopic>
+              <odometryFrame>odom</odometryFrame>
+              <odometryRate>10.0</odometryRate>
+              <robotBaseFrame>ped_link_2</robotBaseFrame>
+            </plugin>
+        </model>
+-->
   </world>
 </sdf>
