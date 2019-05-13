@@ -6,7 +6,7 @@
 
   <!-- Short-term hack to support the original front_laser:=true argument for spawning
        the simulator. This will be removed in favour of using the config:=x arg instead. -->
-  <arg name="front_laser" default="false" />
+  <arg name="front_laser" default="true" />
   <arg name="default_config" value="front_laser" if="$(arg front_laser)" />
   <arg name="default_config" value="base" unless="$(arg front_laser)" /> 
   <!-- end of hack -->
@@ -36,7 +36,7 @@
 
   <!-- Spawn Jackal -->
   <node name="urdf_spawner" pkg="gazebo_ros" type="spawn_model"
-	      args="-urdf -model jackal -param robot_description -x -2 -y 0 -z 0" />
+	      args="-urdf -model jackal -param robot_description -x -0 -y 0 -z 0" />
   <!--
   <node name="urdf_spawner_2" pkg="gazebo_ros" type="spawn_model"
   	      args="-urdf -model person_walking_2 -param person_description -x 20 -y 0 -z 0" />
@@ -44,6 +44,6 @@
 <!-- corridor simulation -->
 <!-- node pkg="tf" type="static_transform_publisher" name="map_odom_broadcaster" args="50 0 0 0 0 0 map odom 100" / -->
 <!-- Staic avoidance experiment -->
-<!--node pkg="tf" type="static_transform_publisher" name="map_odom_broadcaster" args="0 0 0 0 0 0 map odom 100" /-->
+<node pkg="tf" type="static_transform_publisher" name="map_odom_broadcaster" args="0 0 0 0 0 0 map odom 100" />
 
 </launch>

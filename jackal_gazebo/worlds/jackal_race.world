@@ -10,24 +10,13 @@
     <include>
       <uri>model://ground_plane</uri>
     </include>
-<!--
+<!-- -->
+
     <model name='person_walking'>
       <link name='ped_link_1'>
-      <gravity>0</gravity>
-      <inertial>
-        <pose frame=''>0 0 0 0 -0 0</pose>
-        <mass>80</mass>
-        <inertia>
-          <ixx>27.82</ixx>
-          <ixy>0</ixy>
-          <ixz>0</ixz>
-          <iyy>24.88</iyy>
-          <iyz>0</iyz>
-          <izz>4.57</izz>
-        </inertia>
-      </inertial>
-      <collision name='bottom'>
-        <pose frame=''>0 0 0 0 0 0</pose>
+        <gravity>0</gravity>
+        <collision name='bottom'>
+          <pose>0 0 0 0 0 0</pose>
           <geometry>
             <box>
               <size>0.35 0.75 0.02</size>
@@ -39,16 +28,70 @@
               <ode/>
             </contact>
             <bounce/>
+            <friction>
+            <torsional>
+              <ode/>
+            </torsional>
+            <ode/>
+          </friction>
+          </surface>
+        </collision>
+        <collision name='person'>
+          <pose>0 0 0 0 0 0</pose>
+          <geometry>
+            <mesh>
+              <uri>model://person_walking/meshes/walking.dae</uri>
+            </mesh>
+          </geometry>
+          <max_contacts>10</max_contacts>
+        </collision>
+        <visual name='visual'>
+          <pose frame=''>0 0 0 0 -0 0</pose>
+            <geometry>
+              <mesh>
+                <uri>model://person_walking/meshes/walking.dae</uri>
+              </mesh>
+            </geometry>
+        </visual>
+        <self_collide>0</self_collide>
+      </link>
+        <plugin name="object_controller" filename="libgazebo_ros_planar_move.so">
+          <commandTopic>ped_link_1</commandTopic>
+          <ini_x>10</ini_x>
+          <ini_y>0</ini_y>
+          <odometryTopic>odom</odometryTopic>
+          <odometryFrame>odom</odometryFrame>
+          <odometryRate>10.0</odometryRate>
+          <robotBaseFrame>ped_link_1</robotBaseFrame>
+        </plugin>
+    </model>
+<!-- -->
+        <model name='person_walking_2'>
+          <link name='ped_link_2'>
+          <gravity>0</gravity>
+          <collision name='bottom'>
+            <pose >0 0 0 0 0 0</pose>
+            <geometry>
+              <box>
+                <size>0.35 0.75 0.02</size>
+              </box>
+            </geometry>
+          <max_contacts>10</max_contacts>
+            <surface>
+              <contact>
+                <ode/>
+              </contact>
+            <bounce/>
              <friction>
                <torsional>
                  <ode/>
                </torsional>
                <ode/>
              </friction>
-          </surface>
-      </collision>
+            </surface>
+          </collision>
       <collision name='person'>
-        <pose frame=''>0 0 0 0 0 0</pose>
+        <pose>0 0 0 0 0 0</pose>
         <geometry>
           <mesh>
             <uri>model://person_walking/meshes/walking.dae</uri>
@@ -68,48 +111,8 @@
           </friction>
         </surface>
       </collision>
-      <visual name='visual'>
-             <pose frame=''>0 0 0 0 -0 0</pose>
-             <geometry>
-               <mesh>
-                 <uri>model://person_walking/meshes/walking.dae</uri>
-               </mesh>
-             </geometry>
-           </visual>
-           <self_collide>0</self_collide>
-           <enable_wind>0</enable_wind>
-           <kinematic>0</kinematic>
-        </link>
-        <pose frame=''>0 0 0 0 -0 0</pose>
-        <joint name="ped_joint" type="planar">
-          <origin xyz="0 0 0" rpy="0 0 0" />
-          <parent link="odom"/>
-          <child link="ped_link_1" />
-        </joint>
-        <transmission name="ped_trans">
-          <type>transmission_interface/SimpleTransmission</type>
-          <joint name="ped_joint">
-            <hardwareInterface>PositionJointInterface</hardwareInterface>
-          </joint>
-          <actuator name="ped_actuator">
-            <mechanicalReduction>1</mechanicalReduction>
-          </actuator>
-        </transmission>
-        <plugin name="object_controller" filename="libgazebo_ros_planar_move.so">
-          <commandTopic>ped_link_1</commandTopic>
-          <odometryTopic>odom</odometryTopic>
-          <odometryFrame>odom</odometryFrame>
-          <odometryRate>10.0</odometryRate>
-          <robotBaseFrame>ped_link_1</robotBaseFrame>
-        </plugin>
-    </model>
-
-        <model name='person_walking_2'>
-          <link name='ped_link_2'>
-          <gravity>0</gravity>
-
           <visual name='visual'>
-            <pose frame=''>0 0 0 0 -0 0</pose>
+            <pose>0 0 0 0 -0 0</pose>
                  <geometry>
                    <mesh>
                      <uri>model://person_walking/meshes/walking.dae</uri>
@@ -120,29 +123,137 @@
                <enable_wind>0</enable_wind>
                <kinematic>0</kinematic>
             </link>
-            <pose frame='ped_link_2'>0 0 0 0 -0 0</pose>
-            <joint name="ped_joint_2" type="planar">
-              <origin xyz="0 0 0" rpy="0 0 0" />
-              <parent link="odom"/>
-              <child link="ped_link_2" />
-            </joint>
-            <transmission name="ped_trans_2">
-              <type>transmission_interface/SimpleTransmission</type>
-              <joint name="ped_joint_2">
-                <hardwareInterface>PositionJointInterface</hardwareInterface>
-              </joint>
-              <actuator name="ped_actuator_2">
-                <mechanicalReduction>1</mechanicalReduction>
-              </actuator>
-            </transmission>
             <plugin name="object_controller_2" filename="libgazebo_ros_planar_move.so">
               <commandTopic>ped_link_2</commandTopic>
+              <ini_x>20</ini_x>
+              <ini_y>0</ini_y>
               <odometryTopic>odom</odometryTopic>
               <odometryFrame>odom</odometryFrame>
               <odometryRate>10.0</odometryRate>
               <robotBaseFrame>ped_link_2</robotBaseFrame>
             </plugin>
         </model>
+
+<!--
+<model name='BuildingDefaultName'>
+    <link name='Wall_0'>
+      <collision name='Wall_0_Collision'>
+        <geometry>
+          <box>
+            <size>5.2 0.2 2</size>
+          </box>
+        </geometry>
+        <pose>0 0 1 0 -0 0</pose>
+      </collision>
+      <visual name='Wall_0_Visual'>
+        <pose>0 0 1 0 -0 0</pose>
+        <geometry>
+          <box>
+            <size>5.2 0.2 2</size>
+          </box>
+        </geometry>
+        <material>
+          <script>
+            <uri>file://media/materials/scripts/gazebo.material</uri>
+            <name>Gazebo/Grey</name>
+          </script>
+        </material>
+      </visual>
+      <velocity_decay>
+        <linear>0</linear>
+        <angular>0</angular>
+      </velocity_decay>
+      <pose>-10 0 0 0 0 -1.5708</pose>
+    </link>
+    <link name='Wall_2'>
+      <collision name='Wall_2_Collision'>
+        <geometry>
+          <box>
+            <size>5.2 0.2 2</size>
+          </box>
+        </geometry>
+        <pose>0 0 1 0 -0 0</pose>
+      </collision>
+      <visual name='Wall_2_Visual'>
+        <pose>0 0 1 0 -0 0</pose>
+        <geometry>
+          <box>
+            <size>5.2 0.2 2</size>
+          </box>
+        </geometry>
+        <material>
+          <script>
+            <uri>file://media/materials/scripts/gazebo.material</uri>
+            <name>Gazebo/Grey</name>
+          </script>
+        </material>
+      </visual>
+      <velocity_decay>
+        <linear>0</linear>
+        <angular>0</angular>
+      </velocity_decay>
+      <pose>10 0 0 0 -0 1.5708</pose>
+    </link>
+    <link name='Wall_4'>
+      <collision name='Wall_4_Collision'>
+        <geometry>
+          <box>
+            <size>20.2 0.2 2</size>
+          </box>
+        </geometry>
+        <pose>0 0 1 0 -0 0</pose>
+      </collision>
+      <visual name='Wall_4_Visual'>
+        <pose>0 0 1 0 -0 0</pose>
+        <geometry>
+          <box>
+            <size>20.2 0.2 2</size>
+          </box>
+        </geometry>
+        <material>
+          <script>
+            <uri>file://media/materials/scripts/gazebo.material</uri>
+            <name>Gazebo/Grey</name>
+          </script>
+        </material>
+      </visual>
+      <velocity_decay>
+        <linear>0</linear>
+        <angular>0</angular>
+      </velocity_decay>
+      <pose>0 2.5 0 0 -0 0</pose>
+    </link>
+    <link name='Wall_6'>
+      <collision name='Wall_6_Collision'>
+        <geometry>
+          <box>
+            <size>20.2 0.2 2</size>
+          </box>
+        </geometry>
+        <pose>0 0 1 0 -0 0</pose>
+      </collision>
+      <visual name='Wall_6_Visual'>
+        <pose>0 0 1 0 -0 0</pose>
+        <geometry>
+          <box>
+            <size>20.2 0.2 2</size>
+          </box>
+        </geometry>
+        <material>
+          <script>
+            <uri>file://media/materials/scripts/gazebo.material</uri>
+            <name>Gazebo/Grey</name>
+          </script>
+        </material>
+      </visual>
+      <velocity_decay>
+        <linear>0</linear>
+        <angular>0</angular>
+      </velocity_decay>
+      <pose>0 -2.5 0 0 -0 0</pose>
+    </link>
+    <static>1</static>
+  </model>
 -->
   </world>
 </sdf>
