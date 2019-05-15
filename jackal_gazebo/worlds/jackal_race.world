@@ -133,7 +133,7 @@
               <robotBaseFrame>ped_link_2</robotBaseFrame>
             </plugin>
         </model>
-        
+
     <model name='person_walking_3'>
           <link name='ped_link_3'>
           <gravity>0</gravity>
