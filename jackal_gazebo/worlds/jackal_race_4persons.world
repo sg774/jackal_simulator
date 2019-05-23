@@ -136,6 +136,143 @@
             </plugin>
         </model>
 
+    <model name='person_walking_3'>
+          <link name='ped_link_3'>
+          <gravity>0</gravity>
+          <collision name='bottom'>
+            <pose >0 0 0 0 0 0</pose>
+            <geometry>
+                      <cylinder>
+                        <radius>0.3</radius>
+                        <length>0.4</length>
+                      </cylinder>
+            </geometry>
+          <max_contacts>10</max_contacts>
+            <surface>
+              <contact>
+                <ode/>
+              </contact>
+            <bounce/>
+             <friction>
+               <torsional>
+                 <ode/>
+               </torsional>
+               <ode/>
+             </friction>
+            </surface>
+          </collision>
+      <collision name='person'>
+        <pose>0 0 0 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <uri>model://person_walking/meshes/walking.dae</uri>
+          </mesh>
+        </geometry>
+        <max_contacts>10</max_contacts>
+        <surface>
+          <contact>
+            <ode/>
+          </contact>
+          <bounce/>
+          <friction>
+            <torsional>
+              <ode/>
+            </torsional>
+            <ode/>
+          </friction>
+        </surface>
+      </collision>
+          <visual name='visual'>
+            <pose>0 0 0 0 -0 0</pose>
+                 <geometry>
+                   <mesh>
+                     <uri>model://person_walking/meshes/walking.dae</uri>
+                   </mesh>
+                 </geometry>
+               </visual>
+               <self_collide>0</self_collide>
+               <enable_wind>0</enable_wind>
+               <kinematic>0</kinematic>
+            </link>
+            <plugin name="object_controller_3" filename="libgazebo_ros_planar_move.so">
+              <commandTopic>ped_link_3</commandTopic>
+              <ini_x>2</ini_x>
+              <ini_y>0</ini_y>
+              <odometryTopic>odom</odometryTopic>
+              <odometryFrame>odom</odometryFrame>
+              <odometryRate>10.0</odometryRate>
+              <robotBaseFrame>ped_link_3</robotBaseFrame>
+            </plugin>
+        </model>
+
+<model name='person_walking_4'>
+          <link name='ped_link_4'>
+          <gravity>0</gravity>
+          <collision name='bottom'>
+            <pose >0 0 0 0 0 0</pose>
+            <geometry>
+                      <cylinder>
+                        <radius>0.3</radius>
+                        <length>0.4</length>
+                      </cylinder>
+            </geometry>
+          <max_contacts>10</max_contacts>
+            <surface>
+              <contact>
+                <ode/>
+              </contact>
+            <bounce/>
+             <friction>
+               <torsional>
+                 <ode/>
+               </torsional>
+               <ode/>
+             </friction>
+            </surface>
+          </collision>
+      <collision name='person4'>
+        <pose>0 0 0 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <uri>model://person_walking/meshes/walking.dae</uri>
+          </mesh>
+        </geometry>
+        <max_contacts>10</max_contacts>
+        <surface>
+          <contact>
+            <ode/>
+          </contact>
+          <bounce/>
+          <friction>
+            <torsional>
+              <ode/>
+            </torsional>
+            <ode/>
+          </friction>
+        </surface>
+      </collision>
+          <visual name='visual'>
+            <pose>0 0 0 0 -0 0</pose>
+                 <geometry>
+                   <mesh>
+                     <uri>model://person_walking/meshes/walking.dae</uri>
+                   </mesh>
+                 </geometry>
+               </visual>
+               <self_collide>0</self_collide>
+               <enable_wind>0</enable_wind>
+               <kinematic>0</kinematic>
+            </link>
+            <plugin name="object_controller_4" filename="libgazebo_ros_planar_move.so">
+              <commandTopic>ped_link_4</commandTopic>
+              <ini_x>5</ini_x>
+              <ini_y>0</ini_y>
+              <odometryTopic>odom</odometryTopic>
+              <odometryFrame>odom</odometryFrame>
+              <odometryRate>10.0</odometryRate>
+              <robotBaseFrame>ped_link_4</robotBaseFrame>
+            </plugin>
+        </model>
 <!--
 <model name='BuildingDefaultName'>
     <link name='Wall_0'>
