@@ -2,7 +2,8 @@
   <arg name="use_sim_time" default="true" />
   <arg name="gui" default="true" />
   <arg name="headless" default="false" />
-  <arg name="world_name" default="$(find jackal_gazebo)/worlds/jackal_maze_corridor1.world" />
+ <!-- <arg name="world_name" default="$(find jackal_gazebo)/worlds/jackal_maze_corridor1.world" /> -->
+  <arg name="world_name" default="$(find jackal_gazebo)/worlds/dwa_scene.world" /> 
   <!--<arg name="world_name" default="$(find jackal_gazebo)/worlds/jackal_nav.world" />  -->
   <!--<arg name="world_name" default="$(find jackal_gazebo)/worlds/jackal_race_2persons.world" /> -->
 
@@ -38,7 +39,7 @@
 
   <!-- Spawn Jackal -->
   <node name="urdf_spawner" pkg="gazebo_ros" type="spawn_model"
-	      args="-urdf -model jackal -param robot_description -x -0 -y 0 -z 0" />
+	      args="-urdf -model jackal -param robot_description -x -6 -y 9 -z 0" />
   <!--
   <node name="urdf_spawner_2" pkg="gazebo_ros" type="spawn_model"
   	      args="-urdf -model person_walking_2 -param person_description -x 20 -y 0 -z 0" />
@@ -46,6 +47,6 @@
 <!-- corridor simulation -->
 <!-- node pkg="tf" type="static_transform_publisher" name="map_odom_broadcaster" args="50 0 0 0 0 0 map odom 100" / -->
 <!-- Staic avoidance experiment -->
-<node pkg="tf" type="static_transform_publisher" name="map_odom_broadcaster" args="0 0 0 0 0 0 map odom 100" />
+<!--<node pkg="tf" type="static_transform_publisher" name="map_odom_broadcaster" args="0 0 0 0 0 0 map odom 100" /> -->
 
 </launch>
