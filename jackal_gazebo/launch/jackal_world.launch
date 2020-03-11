@@ -3,7 +3,14 @@
   <arg name="gui" default="true" />
   <arg name="headless" default="false" />
  <!-- <arg name="world_name" default="$(find jackal_gazebo)/worlds/jackal_maze_corridor1.world" /> -->
-  <arg name="world_name" default="$(find jackal_gazebo)/worlds/dwa_scene.world" /> 
+  <!--<arg name="world_name" default="$(find jackal_gazebo)/worlds/dwa_scene.world" /> -->
+  <!--<arg name="world_name" default="$(find jackal_gazebo)/worlds/map2.world" /> -->
+  <!--<arg name="world_name" default="$(find jackal_gazebo)/worlds/map3.world" /> -->
+  <!--<arg name="world_name" default="$(find jackal_gazebo)/worlds/map4.world" /> -->
+  <!--<arg name="world_name" default="$(find jackal_gazebo)/worlds/map5.world" /> --> 
+  <!--<arg name="world_name" default="$(find jackal_gazebo)/worlds/map6.world" /> -->
+  <!--<arg name="world_name" default="$(find jackal_gazebo)/worlds/map7.world" /> -->
+  <arg name="world_name" default="$(find jackal_gazebo)/worlds/map8.world" /> 
   <!--<arg name="world_name" default="$(find jackal_gazebo)/worlds/jackal_nav.world" />  -->
   <!--<arg name="world_name" default="$(find jackal_gazebo)/worlds/jackal_race_2persons.world" /> -->
 
@@ -39,7 +46,7 @@
 
   <!-- Spawn Jackal -->
   <node name="urdf_spawner" pkg="gazebo_ros" type="spawn_model"
-	      args="-urdf -model jackal -param robot_description -x -6 -y 9 -z 0" />
+	      args="-urdf -model jackal -param robot_description -x 0 -y 8 -z 0" />
   <!--
   <node name="urdf_spawner_2" pkg="gazebo_ros" type="spawn_model"
   	      args="-urdf -model person_walking_2 -param person_description -x 20 -y 0 -z 0" />
